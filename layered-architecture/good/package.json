@@ -4,14 +4,18 @@
   "description": "",
   "main": "index.js",
   "scripts": {
-    "dev": "tsx watch src/app.ts"
+    "dev": "tsx watch src/app.ts",
+    "test": "jest"
   },
   "type": "module",
   "devDependencies": {
     "@types/better-sqlite3": "^7.6.13",
     "@types/express": "^5.0.6",
+    "@types/jest": "^30.0.0",
     "@types/node": "^25.9.1",
+    "jest": "^30.4.2",
     "prisma": "^7.8.0",
+    "ts-jest": "^29.4.11",
     "tsx": "^4.22.3",
     "typescript": "^6.0.3"
   },

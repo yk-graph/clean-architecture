@@ -6,6 +6,7 @@
     "strict": true,
     "esModuleInterop": true,
     "ignoreDeprecations": "6.0",
+    "types": ["jest", "node"],
     "paths": {
       "@/*": ["./src/*"],
       "@prisma/*": ["./generated/prisma/*"]
