@@ -4,7 +4,7 @@ import { prisma } from '@/lib/prisma'
 import { BookRepositoryInterface } from './book.repository.interface'
 
 export class BookRepository implements BookRepositoryInterface {
-  async create(title: string): Promise<Book> {
+  create = async (title: string): Promise<Book> => {
     return await prisma.book.create({
       data: {
         title,
@@ -13,7 +13,7 @@ export class BookRepository implements BookRepositoryInterface {
     })
   }
 
-  async findById(id: string): Promise<Book | null> {
+  findById = async (id: string): Promise<Book | null> => {
     return await prisma.book.findUnique({
       where: { id },
     })

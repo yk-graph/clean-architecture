@@ -6,7 +6,7 @@ import { BookServiceInterface } from '@/services/book.service.interface'
 export class BookController {
   constructor(private readonly bookService: BookServiceInterface) {}
 
-  async add(req: Request, res: Response): Promise<void> {
+  add = async (req: Request, res: Response): Promise<void> => {
     try {
       const { title } = req.body as Book
       const book = await this.bookService.add(title)
@@ -20,7 +20,7 @@ export class BookController {
     }
   }
 
-  async findById(req: Request, res: Response): Promise<void> {
+  findById = async (req: Request, res: Response): Promise<void> => {
     try {
       const id = req.params.id as string
       const book = await this.bookService.findById(id)
