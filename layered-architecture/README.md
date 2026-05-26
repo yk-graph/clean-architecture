@@ -2,12 +2,18 @@
 
 アプリケーションを **Presentation / BusinessLogic / DataAccess** の3層に分割し、各層が下の層にのみ依存する構造。
 
+| 層 | 主なクラス | 役割 |
+|----|-----------|------|
+| **Presentation** | Controller | HTTPリクエストの受け取りとレスポンスの返却。入力値の取り出しやHTTPステータスの決定など、外部とのやり取りを担う |
+| **BusinessLogic** | Service | アプリケーションのビジネスルールや処理の流れを担う。データの検証・加工・複数リポジトリの組み合わせなど |
+| **DataAccess** | Repository | データの永続化と取得を担う。DBへのCRUD操作を集約し、上位層にDB実装の詳細を意識させない |
+
 ```
-Presentation  （BookController）
+Presentation  （BookController） — リクエスト/レスポンスの処理
       ↓
-BusinessLogic （BookService）
+BusinessLogic （BookService）    — ビジネスロジック
       ↓
-DataAccess    （BookRepository）
+DataAccess    （BookRepository） — DBアクセス
 ```
 
 ## 実装例

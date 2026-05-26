@@ -19,13 +19,37 @@
 ## ソフトウェア設計の基本概念
 
 ### カプセル化
-データと操作をオブジェクトにまとめ、内部状態を外部から直接アクセスできないよう隠蔽する。`private` 属性に対して `public` メソッド経由でのみ操作させる設計。
+
+**概念**: データと操作をオブジェクトにまとめ、内部状態を外部から直接アクセスできないよう隠蔽する。
+
+**TypeScriptでの表現**: `private` / `readonly` キーワードを使い、フィールドへの直接アクセスを禁止する。
+
+**実例**: `BookController` は `bookService` を `private readonly` で保持しており、外部から直接変更できない。コンストラクタで受け取ることで初期化後の差し替えも防いでいる。
+→ [good/src/controllers/book.controller.ts](./layered-architecture/good/src/controllers/book.controller.ts)
+
+---
 
 ### 抽象化
-本質的な要素や共通の振る舞いを抽出し、不要な詳細を排除する。複雑さを管理し、再利用性を高める。
+
+**概念**: 本質的な要素や共通の振る舞いを抽出し、不要な詳細を排除する。「何ができるか」だけを定義し「どう実装するか」を隠す。
+
+**TypeScriptでの表現**: `interface` や `abstract class` を使い、メソッドのシグネチャだけを定義する。
+
+**実例**: `BookServiceInterface` は `add()` と `findById()` の2つの操作だけを定義しており、Prismaを使うかどうかといった実装詳細は含まれていない。
+→ [good/src/services/book.service.interface.ts](./layered-architecture/good/src/services/book.service.interface.ts)
+
+---
 
 ### インターフェース
-クラスが実装すべきメソッドのセットを定義する契約。実装の強制・抽象化の促進・依存関係の削減が目的。
+
+**概念**: クラスが実装すべきメソッドのセットを定義する契約。実装を強制し、依存関係を減らす。
+
+**TypeScriptでの表現**: `interface` キーワードで定義し、クラスに `implements` させる。依存する側はインターフェース型を受け取ることで、具体クラスへの依存をなくす。
+
+**実例**:
+- インターフェース定義 → [good/src/repositories/book.repository.interface.ts](./layered-architecture/good/src/repositories/book.repository.interface.ts)
+- インターフェースを実装したクラス → [good/src/repositories/book.repository.ts](./layered-architecture/good/src/repositories/book.repository.ts)
+- インターフェース型で依存している箇所 → [good/src/services/book.service.ts](./layered-architecture/good/src/services/book.service.ts)
 
 ---
 
@@ -37,9 +61,9 @@
 
 | ポイント | 概要 |
 |---------|------|
-| **単一責任の原則 (SRP)** | モジュールはたった一つのアクターに対して責務を負う |
+| **単一責任の原則** | モジュールはたった一つのアクター（そのモジュールを利用・変更を要求するユーザーや部門などのステークホルダー）に対して責務を負う |
 | **凝集性** | モジュール内部の機能は強く関連したものだけをまとめる（高凝集を目指す） |
-| **関心の分離 (SoC)** | UI・ビジネスロジック・データアクセスなど、異なる関心事を独立したモジュールに分ける |
+| **関心の分離** | UI・ビジネスロジック・データアクセスなど、異なる関心事を独立したモジュールに分ける |
 
 ---
 
